@@ -124,3 +124,192 @@ document.querySelectorAll('.read-more-btn').forEach(btn => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const roadmapWrapper = document.querySelector('.roadmap-wrapper');
+    const currentItem = document.querySelector('.roadmap-item.current');
+
+    if (currentItem) {
+        setTimeout(() => {
+            currentItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 500);
+    }
+
+    // Fade in animation for items
+    const roadmapItems = document.querySelectorAll('.roadmap-item');
+    roadmapItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.2}s`;
+    });
+});
+
+// Add to your JS file
+function updateSemesterProgress() {
+    const now = new Date();
+    const items = document.querySelectorAll('.roadmap-item');
+    
+    items.forEach(item => {
+        const startDate = new Date(item.dataset.start);
+        const endDate = new Date(item.dataset.end);
+        
+        // Remove any existing classes
+        item.classList.remove('current', 'completed', 'future');
+        
+        if (now < startDate) {
+            item.classList.add('future');
+        } else if (now > endDate) {
+            item.classList.add('completed');
+        } else {
+            item.classList.add('current');
+            
+            // Calculate progress
+            const total = endDate - startDate;
+            const progress = now - startDate;
+            const percentage = Math.min(100, Math.max(0, (progress / total) * 100));
+            
+            const progressFill = item.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = `${percentage}%`;
+            }
+        }
+    });
+}
+
+// Update on load and periodically
+document.addEventListener('DOMContentLoaded', () => {
+    updateSemesterProgress();
+    setInterval(updateSemesterProgress, 1000 * 60 * 60); // Update every hour
+});
+
+// about.js
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AOS for scroll animations
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+
+    // Update semester progress automatically
+    function updateSemesterProgress() {
+        const now = new Date();
+        const items = document.querySelectorAll('.roadmap-item');
+        
+        items.forEach(item => {
+            const startDate = new Date(item.dataset.start);
+            const endDate = new Date(item.dataset.end);
+            
+            if (now < startDate) {
+                item.classList.add('future');
+            } else if (now > endDate) {
+                item.classList.add('completed');
+            } else {
+                item.classList.add('current');
+                
+                // Calculate progress
+                const total = endDate - startDate;
+                const progress = now - startDate;
+                const percentage = Math.min(100, Math.max(0, (progress / total) * 100));
+                
+                const progressFill = item.querySelector('.progress-fill');
+                if (progressFill) {
+                    progressFill.style.width = `${percentage}%`;
+                }
+            }
+        });
+    }
+
+    // Skill box animations on scroll
+    const skillBoxes = document.querySelectorAll('.skill-box');
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                skillObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    skillBoxes.forEach(box => skillObserver.observe(box));
+
+    // Timeline animations
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateX(0)';
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    timelineItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-50px)';
+        item.style.transition = 'all 0.5s ease';
+        timelineObserver.observe(item);
+    });
+
+    // Stats counter animation
+    const stats = document.querySelectorAll('.stat-card h4');
+    function animateValue(element, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            element.innerText = Math.floor(progress * (end - start) + start) + '+';
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const finalValue = parseInt(entry.target.innerText);
+                animateValue(entry.target, 0, finalValue, 2000);
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => statsObserver.observe(stat));
+
+    // Tools and interests hover effect
+    const tools = document.querySelectorAll('.tool-item, .interest-item');
+    tools.forEach(tool => {
+        tool.addEventListener('mouseenter', () => {
+            tool.querySelector('i').style.transform = 'scale(1.2) rotate(5deg)';
+        });
+        tool.addEventListener('mouseleave', () => {
+            tool.querySelector('i').style.transform = 'scale(1) rotate(0)';
+        });
+    });
+
+    // CV button effect
+    const cvButton = document.querySelector('.cv-button');
+    if (cvButton) {
+        cvButton.addEventListener('mouseenter', () => {
+            cvButton.querySelector('i').style.transform = 'translateX(5px)';
+        });
+        cvButton.addEventListener('mouseleave', () => {
+            cvButton.querySelector('i').style.transform = 'translateX(0)';
+        });
+    }
+
+    // Initialize scroll progress
+    updateSemesterProgress();
+    // Update progress periodically
+    setInterval(updateSemesterProgress, 1000 * 60 * 60); // Update every hour
+});
+
