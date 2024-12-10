@@ -107,6 +107,14 @@
             <i class="bi bi-braces"></i>
             <span>Programming Logic</span>
           </div>
+          <div class="course-item">
+            <i class="bi bi-box"></i>
+            <span>Editing & Render</span>
+          </div>
+          <div class="course-item">
+            <i class="bi bi-app"></i>
+            <span>Android</span>
+          </div>
         </div>
       </div>
     </div>
@@ -263,14 +271,26 @@
         <span class="timeline-date">2023 - Present</span>
       </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h4>PT.FREEPORT INDONESIA</h4>
-        <p>IT </p>
-        <span class="timeline-date">2026 - Future</span>
-      </div>
+    <!-- Update timeline item -->
+<div class="timeline-item future-path">
+  <div class="timeline-dot divine"></div>
+  <div class="timeline-content sacred">
+    <div class="divine-seal">
+      <div class="sacred-geometry"></div>
+      <i class="bi bi-brightness-high"></i>
     </div>
+    <h4>Future Calling</h4>
+    <p>Mining Industry IT Professional</p>
+    <p class="role">Tech Division</p>
+    <div class="divine-message">
+      <span>"Trust in the Lord with all your heart"</span>
+    </div>
+    <span class="timeline-date">
+      <i class="bi bi-infinity"></i>
+      In His Perfect Time | Please, Be My Luck
+    </span>
+  </div>
+</div>
     <!-- Add more timeline items -->
   </div>
 </div>

@@ -296,3 +296,27 @@
     text-decoration: underline;
 }
 
+/* Enhanced animations */
+.page-transition {
+    animation: fadeOut 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Improved mobile interactions */
+@media (max-width: 768px) {
+    .portfolio-card {
+        transform-origin: center;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .portfolio-card:active {
+        transform: scale(0.98);
+    }
+}
+

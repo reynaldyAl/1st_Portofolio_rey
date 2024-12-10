@@ -1183,5 +1183,116 @@ footer a {
   margin-top: 5px;
 }
 
+/* Timeline styling */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline-item {
+  padding: 20px;
+  margin-left: 40px;
+  position: relative;
+  border-left: 2px solid #FFD700;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.5s ease forwards;
+}
+
+/* Future path specific styling */
+.timeline-item.future-path {
+  border-left: 2px dashed rgba(255, 215, 0, 0.3);
+}
+
+.timeline-item.future-path .timeline-dot {
+  background: #1f1f1f;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.timeline-item.future-path .timeline-content {
+  background: rgba(31, 31, 31, 0.97);
+  border: 1px dashed rgba(255, 215, 0, 0.2);
+  opacity: 0.8;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -11px;
+  top: 30px;
+  width: 20px;
+  height: 20px;
+  background: #FFD700;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.timeline-content {
+  background: rgba(255, 215, 0, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Future content styling */
+.timeline-item.future-path h4 {
+  color: rgba(255, 215, 0, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item.future-path p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.timeline-item.future-path .timeline-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 215, 0, 0.5);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.timeline-item.future-path .timeline-date i {
+  font-size: 0.9rem;
+  animation: glow 2s infinite;
+}
+
+/* Animations */
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+  }
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Hover effects */
+.timeline-item.future-path:hover .timeline-content {
+  border-color: rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-item.future-path:hover .timeline-dot {
+  transform: scale(1.2);
+}
+
+
 
 

@@ -313,3 +313,36 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateSemesterProgress, 1000 * 60 * 60); // Update every hour
 });
 
+// Improve animation performance
+function debounceAnimation(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Enhanced page transitions
+document.addEventListener('DOMContentLoaded', () => {
+    const pageTransitions = {
+        init() {
+            document.querySelectorAll('a[href^="/"]').forEach(link => {
+                link.addEventListener('click', e => this.handleTransition(e));
+            });
+        },
+
+        handleTransition(e) {
+            e.preventDefault();
+            const target = e.currentTarget.href;
+            
+            document.body.classList.add('page-transition');
+            setTimeout(() => window.location = target, 500);
+        }
+    };
+
+    pageTransitions.init();
+});
